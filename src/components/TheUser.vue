@@ -9,19 +9,19 @@
         <th>Action</th>
       </tr>
       <tbody>
-        <tr>
-          <td>1</td>
-          <td>Kashif Ahmad</td>
-          <td>ahmadkashif773@gmail.com</td>
-          <td>Peshawar Sadder Cantt</td>
+        <tr v-for="item in usersList" :key="item.id">
+          <td>{{item.id}}</td>
+          <td>{{item.fullname}}</td>
+          <td>{{item.email}}</td>
+          <td>{{item.address}}</td>
           <td>
             <div class="btn-group">
-              <button class="btn">Update</button
-              ><button class="btn">Delete</button>
+              <router-link :to="{name: 'updateUser', params: {id:item.id, name:item.fullname, user_email:item.email, user_address:item.address}}"  class="btn">Update</router-link>
+              <button class="btn">Delete</button>
             </div>
           </td>
         </tr>
-        <tr>
+        <!-- <tr>
           <td>1</td>
           <td>Kashif Ahmad</td>
           <td>ahmadkashif773@gmail.com</td>
@@ -80,14 +80,45 @@
               <button class="btn">Delete</button>
             </div>
           </td>
-        </tr>
+        </tr> -->
       </tbody>
     </table>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+
+  data(){
+    return {
+      usersList : [
+        {
+          id: 1,
+          fullname: 'kashif',
+          email: 'ahmadkashif773@gmail.com',
+          address: 'Peshawar Sadder'
+        },
+        {
+          id: 2,
+          fullname: 'kashif',
+          email: 'ahmadkashif773@gmail.com',
+          address: 'Peshawar Sadder'
+        },
+        {
+          id: 3,
+          fullname: 'kashif',
+          email: 'ahmadkashif773@gmail.com',
+          address: 'Peshawar Sadder'
+        }
+      ]
+    }
+  },
+  created(){
+
+  }
+
+
+};
 </script>
 
 <style scoped>

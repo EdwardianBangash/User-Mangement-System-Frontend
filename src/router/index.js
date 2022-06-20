@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import TheHome from "../components/TheHome.vue";
 import TheUser from "../components/TheUser.vue";
+import NewUser from "../components/NewUser.vue";
 import UpdateUser from "../components/UpdateUser.vue";
 
 const router = createRouter({
@@ -15,6 +16,11 @@ const router = createRouter({
       path: "/user",
       component: TheUser,
       name: "User",
+    },
+    {
+      path: "/new",
+      component: NewUser,
+      name: "newUser",
     },
     {
       path: "/update/:id",

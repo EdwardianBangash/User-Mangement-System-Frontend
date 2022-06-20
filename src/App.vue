@@ -30,4 +30,9 @@ export default {
   display: flex;
   flex-direction: row;
 }
+
+a{
+  text-decoration: none;
+  color: #000;
+}
 </style>

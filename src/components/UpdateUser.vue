@@ -2,48 +2,57 @@
   <div class="update-user-wrapper">
     <div class="topbar">
       <h3>Update User</h3>
-      <button class="btn">Add New User</button>
+      <router-link to="/new" class="btn">Add New User</router-link>
     </div>
 
-    <form action="">
-        <div class="form-group">
-            <label for="name">FullName</label>
-            <input type="text" class="form-control" v-model="fullname">
-        </div>
+    <form @submit.prevent="updateUser">
+      <div class="form-group">
+        <label for="name">FullName</label>
+        <input type="text" class="form-control" v-model="fullname" />
+      </div>
 
-        <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" class="form-control" v-model="email">
-        </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" class="form-control" v-model="email" />
+      </div>
 
-        <div class="form-group">
-            <label for="address">Address</label>
-            <input type="text" class="form-control" v-model="address"  />
-        </div>
+      <div class="form-group">
+        <label for="address">Address</label>
+        <input type="text" class="form-control" v-model="address" />
+      </div>
 
-        <button type="submit" class="btn">Update User</button>
+      <button type="submit" class="btn">Update User</button>
     </form>
   </div>
 </template>
 
 <script>
 export default {
+  props: ["name", "user_email", "user_address"],
+  data() {
+    return {
+      fullname: this.$props.name,
+      email: this.$props.user_email,
+      address: this.$props.user_address,
+    };
+  },
 
-    props: ["name", "user_email", "user_address"],
-    data() {
-        return {
-            fullname: this.$props.name,
-            // fullname: '',
-            // email: this.user_email,
-            // address: this.user_address,
-            email:'',
-            address:'',
-        }
+  methods: {
+    updateUser() {
+      axios
+        .post("http://www.localhost:8000/updateUser", {
+          fullname: this.fullname,
+          email: this.email,
+          address: this.address,
+        })
+        .then(function (response) {
+          console.log(response);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
     },
-    created(){
-        console.log(this.$props);
-    }
-
+  },
 };
 </script>
 
@@ -68,6 +77,7 @@ export default {
   background-color: rgb(0, 137, 249);
   transition: 0.2s ease-in all;
   margin: 10px;
+  font-size: 18px;
 }
 
 .btn:hover {
@@ -75,24 +85,24 @@ export default {
   color: #fff;
 }
 
-h3{
-    font-size: 21px;
+h3 {
+  font-size: 21px;
 }
 
 form {
-    width: 400px;
+  width: 400px;
 }
 
 label {
-    font-size: 18px;
-    font-weight:500;
+  font-size: 18px;
+  font-weight: 500;
 }
 
 input {
-    display: block;
-    padding: 10px;
-    width: 100%;
-    margin: 10px;
-    font-size: 16px;
+  display: block;
+  padding: 10px;
+  width: 100%;
+  margin: 10px;
+  font-size: 16px;
 }
 </style>
