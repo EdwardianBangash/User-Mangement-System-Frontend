@@ -40,7 +40,7 @@ export default {
   methods: {
     updateUser() {
       axios
-        .post("http://www.localhost:8000/updateUser", {
+        .post("http://127.0.0.1:8000/updateUser", {
           fullname: this.fullname,
           email: this.email,
           address: this.address,

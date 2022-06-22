@@ -87,34 +87,20 @@
 </template>
 
 <script>
+  import axios from 'axios'
 export default {
-
   data(){
     return {
-      usersList : [
-        {
-          id: 1,
-          fullname: 'kashif',
-          email: 'ahmadkashif773@gmail.com',
-          address: 'Peshawar Sadder'
-        },
-        {
-          id: 2,
-          fullname: 'kashif',
-          email: 'ahmadkashif773@gmail.com',
-          address: 'Peshawar Sadder'
-        },
-        {
-          id: 3,
-          fullname: 'kashif',
-          email: 'ahmadkashif773@gmail.com',
-          address: 'Peshawar Sadder'
-        }
-      ]
+      usersList : []
     }
   },
-  created(){
-
+  mounted(){
+    axios.get('http://127.0.0.1:8000/api/allUser').then(function(response){
+      this.usersList = response.data.data
+      console.log(response)
+    }).catch(function(response){
+      console.log(response)
+    })
   }
 
 
