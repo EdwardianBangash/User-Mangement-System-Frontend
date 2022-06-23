@@ -1,5 +1,9 @@
 <template>
   <div class="users">
+    <div class="users-topbar">
+      <h3>Users List</h3>
+      <router-link class="btn-add" to="/new">Add New User</router-link>
+    </div>
     <table border="0" cellspacing="0" cellpadding="0">
       <tr>
         <th>#</th>
@@ -87,20 +91,21 @@
 </template>
 
 <script>
-  import axios from 'axios'
 export default {
   data(){
     return {
       usersList : []
     }
   },
-  mounted(){
-    axios.get('http://127.0.0.1:8000/api/allUser').then(function(response){
-      this.usersList = response.data.data
-      console.log(response)
-    }).catch(function(response){
-      console.log(response)
-    })
+  created(){
+    if(this.usersList.length == 0){
+      this.$axios.get('http://127.0.0.1:8000/api/allUser').then((response)=>{
+        this.usersList = response.data.data
+        console.log(response)
+      }).catch(function(response){
+        console.log(response)
+      })
+    }
   }
 
 
@@ -113,10 +118,14 @@ export default {
   flex-grow: 2;
 }
 
-/* table tr td{
-    border: 1px solid black;
-    margin: 0;
-} */
+.users-topbar{
+  display: flex;
+  justify-content: space-between;
+}
+
+h3{
+  padding-top: 5px;
+}
 
 table {
   width: 100%;
@@ -171,6 +180,22 @@ tr:nth-child(odd):hover {
 
 .btn:nth-child(2):hover {
   background-color: rgb(148, 29, 29);
+  color: #fff;
+}
+
+.btn-add{
+  background-color: rgb(0, 137, 249);
+  color: #fff;
+   margin: 5px;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  border-radius: 3px;
+  z-index: 111;
+}
+
+.btn-add:hover {
+  background-color: rgb(36, 114, 178);
   color: #fff;
 }
 </style>

@@ -6,6 +6,7 @@
     </div>
 
     <form @submit.prevent="updateUser">
+      <div v-if="response" :class="type">{{message}}</div>
       <div class="form-group">
         <label for="name">FullName</label>
         <input type="text" class="form-control" v-model="fullname" />
@@ -31,25 +32,34 @@ export default {
   props: ["name", "user_email", "user_address"],
   data() {
     return {
+      id: this.$route.params.id,
       fullname: this.$props.name,
       email: this.$props.user_email,
       address: this.$props.user_address,
+      message: "",
+      response: false,
+      type: "",
     };
   },
 
   methods: {
     updateUser() {
-      axios
-        .post("http://127.0.0.1:8000/updateUser", {
+      this.$axios
+        .post("http://127.0.0.1:8000/api/updateUser", {
+          id: this.id,
           fullname: this.fullname,
           email: this.email,
           address: this.address,
         })
         .then(function (response) {
-          console.log(response);
+          this.response = true;
+          this.message = response.data.success;
+          this.type = 'success';
         })
         .catch(function (error) {
-          console.log(error);
+          this.response = true;
+          this.message = error.response.data.error;
+          this.type = 'error';
         });
     },
   },
@@ -104,5 +114,22 @@ input {
   width: 100%;
   margin: 10px;
   font-size: 16px;
+}
+.success {
+  background-color: rgb(54, 143, 191);
+  color: #fff;
+  font-size: 15px;
+  padding: 20px;
+  margin-bottom: 10px;
+  border-radius: 4px;
+}
+
+.error {
+  background-color: rgb(205, 94, 64);
+  color: #fff;
+  font-size: 15px;
+  padding: 20px;
+  margin-bottom: 10px;
+   border-radius: 4px;
 }
 </style>
