@@ -14,77 +14,29 @@
       </tr>
       <tbody>
         <tr v-for="item in usersList" :key="item.id">
-          <td>{{item.id}}</td>
-          <td>{{item.fullname}}</td>
-          <td>{{item.email}}</td>
-          <td>{{item.address}}</td>
+          <td>{{ item.id }}</td>
+          <td>{{ item.fullname }}</td>
+          <td>{{ item.email }}</td>
+          <td>{{ item.address }}</td>
           <td>
             <div class="btn-group">
-              <router-link :to="{name: 'updateUser', params: {id:item.id, name:item.fullname, user_email:item.email, user_address:item.address}}"  class="btn">Update</router-link>
-              <button class="btn">Delete</button>
+              <router-link
+                :to="{
+                  name: 'updateUser',
+                  params: {
+                    id: item.id,
+                    name: item.fullname,
+                    user_email: item.email,
+                    user_address: item.address,
+                  },
+                }"
+                class="btn"
+                >Update</router-link
+              >
+              <button class="btn" @click="deleteUser(item.id)">Delete</button>
             </div>
           </td>
         </tr>
-        <!-- <tr>
-          <td>1</td>
-          <td>Kashif Ahmad</td>
-          <td>ahmadkashif773@gmail.com</td>
-          <td>Peshawar Sadder Cantt</td>
-          <td>
-            <div class="btn-group">
-              <button class="btn">Update</button
-              ><button class="btn">Delete</button>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td>1</td>
-          <td>Kashif Ahmad</td>
-          <td>ahmadkashif773@gmail.com</td>
-          <td>Peshawar Sadder Cantt</td>
-          <td>
-            <div class="btn-group">
-              <button class="btn">Update</button
-              ><button class="btn">Delete</button>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td>1</td>
-          <td>Kashif Ahmad</td>
-          <td>ahmadkashif773@gmail.com</td>
-          <td>Peshawar Sadder Cantt</td>
-          <td>
-            <div class="btn-group">
-              <button class="btn">Update</button
-              ><button class="btn">Delete</button>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td>1</td>
-          <td>Kashif Ahmad</td>
-          <td>ahmadkashif773@gmail.com</td>
-          <td>Peshawar Sadder Cantt</td>
-          <td>
-            <div class="btn-group">
-              <button class="btn">Update</button
-              ><button class="btn">Delete</button>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td>1</td>
-          <td>Kashif Ahmad</td>
-          <td>ahmadkashif773@gmail.com</td>
-          <td>Peshawar Sadder Cantt</td>
-          <td>
-            <div class="btn-group">
-              <router-link :to="{name: 'updateUser', params: {id:2}}" name="kashif" user_email="kashif" user_address="peshawar" class="btn">Update</router-link>
-              <button class="btn">Delete</button>
-            </div>
-          </td>
-        </tr> -->
       </tbody>
     </table>
   </div>
@@ -92,23 +44,39 @@
 
 <script>
 export default {
-  data(){
+  data() {
     return {
-      usersList : []
-    }
+      usersList: [],
+    };
   },
-  created(){
-    if(this.usersList.length == 0){
-      this.$axios.get('http://127.0.0.1:8000/api/allUser').then((response)=>{
-        this.usersList = response.data.data
-        console.log(response)
-      }).catch(function(response){
-        console.log(response)
-      })
-    }
-  }
-
-
+  created() {
+    this.fetchUser();
+  },
+  methods: {
+    deleteUser(userId) {
+      this.$axios
+        .post("http://127.0.0.1:8000/api/deleteUser", { id: userId })
+        .then((response) => {
+          console.log(response);
+        })
+        .catch(function (response) {
+          console.log(response);
+        });
+    },
+    fetchUser() {
+      if (this.usersList.length === 0) {
+        this.$axios
+          .get("http://127.0.0.1:8000/api/allUser")
+          .then((response) => {
+            this.usersList = response.data.data;
+            console.log(response);
+          })
+          .catch(function (response) {
+            console.log(response);
+          });
+      }
+    },
+  },
 };
 </script>
 
@@ -118,12 +86,12 @@ export default {
   flex-grow: 2;
 }
 
-.users-topbar{
+.users-topbar {
   display: flex;
   justify-content: space-between;
 }
 
-h3{
+h3 {
   padding-top: 5px;
 }
 
@@ -183,10 +151,10 @@ tr:nth-child(odd):hover {
   color: #fff;
 }
 
-.btn-add{
+.btn-add {
   background-color: rgb(0, 137, 249);
   color: #fff;
-   margin: 5px;
+  margin: 5px;
   padding: 10px 20px;
   border: none;
   cursor: pointer;
