@@ -54,6 +54,7 @@ export default {
   },
   methods: {
     deleteUser(userId) {
+      this.usersList = this.usersList.filter((item)=>item.id != userId)
       this.$axios
         .post("http://127.0.0.1:8000/api/deleteUser", { id: userId })
         .then((response) => {

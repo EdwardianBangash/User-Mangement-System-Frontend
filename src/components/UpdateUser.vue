@@ -6,7 +6,7 @@
     </div>
 
     <form @submit.prevent="updateUser">
-      <div v-if="response" :class="type">{{message}}</div>
+      <div v-if="response" :class="type">{{ message }}</div>
       <div class="form-group">
         <label for="name">FullName</label>
         <input type="text" class="form-control" v-model="fullname" />
@@ -51,15 +51,15 @@ export default {
           email: this.email,
           address: this.address,
         })
-        .then(function (response) {
+        .then((response) => {
           this.response = true;
           this.message = response.data.success;
-          this.type = 'success';
+          this.type = "success";
         })
-        .catch(function (error) {
+        .catch((error) => {
           this.response = true;
           this.message = error.response.data.error;
-          this.type = 'error';
+          this.type = "error";
         });
     },
   },
@@ -130,6 +130,6 @@ input {
   font-size: 15px;
   padding: 20px;
   margin-bottom: 10px;
-   border-radius: 4px;
+  border-radius: 4px;
 }
 </style>
