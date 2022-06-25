@@ -69,8 +69,7 @@ export default {
         this.$axios
           .get("http://127.0.0.1:8000/api/allUser")
           .then((response) => {
-            this.usersList = response.data.data;
-            console.log(response);
+            this.usersList = response.data.data
           })
           .catch(function (response) {
             console.log(response);

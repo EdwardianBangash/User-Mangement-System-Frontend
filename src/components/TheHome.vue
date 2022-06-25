@@ -2,18 +2,39 @@
   <div class="home">
     <div class="card">
       <div class="card-title">Users</div>
-      <div class="card-footer">20</div>
+      <div class="card-footer">{{totalUser}}</div>
     </div>
 
-    <div class="card">
+    <!-- <div class="card">
       <div class="card-title">Users</div>
       <div class="card-footer">20</div>
-    </div>
+    </div> -->
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  data(){
+    return {
+      totalUser: null
+    }
+  },
+  created(){
+    this.totalUsers()
+  },
+  methods: {
+    totalUsers(){
+      this.$axios
+        .get("http://127.0.0.1:8000/api/countUser")
+        .then((response) => {
+          this.totalUser = response.data.totalUser
+        })
+        .catch(function (response) {
+          console.log(response);
+        });
+    }
+  }
+};
 </script>
 
 <style scoped>
